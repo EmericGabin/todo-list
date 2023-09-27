@@ -1,0 +1,40 @@
+<div class="container"> 
+    <h2 class="">To Do list</h2>
+    <div class="input-group w-25">
+        <input class="form-control" type="text" placeholder="Enter your task" [(ngModel)]="task">
+        <button type="button" class="btn btn-outline-primary" (click)="onSaveTask()">Add</button>
+    </div>
+
+    <div class="mt-3">
+        <button type="button" class="btn btn-secondary ms-2" (click)="filterTask('In Progress')">
+            In progress
+          </button>
+
+          <button type="button" class="btn btn-success ms-2" (click)="filterTask('Completed')">
+            Completed
+          </button>
+
+          <button type="button" class="btn btn-primary ms-2" (click)="filterTask('All')">
+            All
+          </button>
+    </div>
+
+    <div class="task-container mt-3" *ngFor="let task of listOfTask; index as i">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input"
+                id="checkbox-{{i}}" 
+                [checked]="task.state === state"
+                (change)="onChangeStateTask(task)"
+            >
+            <label class="form-check-label" for="checkbox-{{i}}" [ngClass]="{'text-decoration-line-through': task.state === state}">
+                {{task.name}}
+            </label>
+            <button class="btn" (click)="openModal(task)">
+                <fa-icon icon="pen-to-square"></fa-icon>
+            </button>
+            <button class="btn" (click)="onDeleteTask(task)">
+                <fa-icon icon="delete-left"></fa-icon>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h4 class="modal-title">Update</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group" >
+      <label>Task name</label>
+      <input type="text" class="form-control" [(ngModel)]="currentTask.name">
+    </div>
+    <div class="form-group">
+      <label>State</label>
+      <ng-select
+       bindLabel="name"
+      autofocus
+      bindValue="id" [items]="TaskStates" [(ngModel)]="currentTask.state"></ng-select>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="onValidateUpdate()">To validate</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+  </div>
+  
