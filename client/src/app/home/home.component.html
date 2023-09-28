@@ -1,6 +1,6 @@
-<div class="container"> 
-    <h2 class="">To Do list</h2>
-    <div class="input-group w-25">
+<div class="container shadow bg-white"> 
+    <h2 class="bg-info text-white card p-2 mt-2">To Do App</h2>
+    <div class="input-group shadow bg-light">
         <input class="form-control" type="text" placeholder="Enter your task" [(ngModel)]="task">
         <button type="button" class="btn btn-outline-primary" (click)="onSaveTask()">Add</button>
     </div>
@@ -19,22 +19,24 @@
           </button>
     </div>
 
-    <div class="task-container mt-3" *ngFor="let task of listOfTask; index as i">
-        <div class="form-check">
+    <div class="task-container mt-3 card shadow bg-light mb-4 p-2" *ngFor="let task of listOfTask; index as i">
+        <div class="form-check d-inline-flex justify-content-between">
             <input type="checkbox" class="form-check-input"
                 id="checkbox-{{i}}" 
                 [checked]="task.state === state"
                 (change)="onChangeStateTask(task)"
             >
-            <label class="form-check-label" for="checkbox-{{i}}" [ngClass]="{'text-decoration-line-through': task.state === state}">
+            <label class="form-check-label fs-5" for="checkbox-{{i}}" [ngClass]="{'text-decoration-line-through': task.state === state}">
                 {{task.name}}
             </label>
-            <button class="btn" (click)="openModal(task)">
-                <fa-icon icon="pen-to-square"></fa-icon>
-            </button>
-            <button class="btn" (click)="onDeleteTask(task)">
-                <fa-icon icon="delete-left"></fa-icon>
-            </button>
+            <div class="">
+                <button class="btn btn-outline-primary m-1" (click)="openModal(task)">
+                    <fa-icon icon="pen-to-square"></fa-icon>
+                </button>
+                <button class="btn btn-outline-danger m-1" (click)="onDeleteTask(task)">
+                    <fa-icon icon="delete-left"></fa-icon>
+                </button>
+            <div>
         </div>
     </div>
 </div>

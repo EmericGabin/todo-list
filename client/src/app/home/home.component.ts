@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
   }
 
   openModal(task: Task){
-    const modalRef = this.modalService.open(EditTaskModalComponent, { size: 'xl' });
+    const modalRef = this.modalService.open(EditTaskModalComponent, { size: 'xs' });
     modalRef.componentInstance.onChangeTask(task);
     modalRef.componentInstance.taskUpdated.subscribe((task: Task) => {
       this.onTaskUpdated(task);

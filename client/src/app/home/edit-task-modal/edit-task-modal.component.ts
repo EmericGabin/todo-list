@@ -10,27 +10,17 @@ import { Task } from 'src/app/shared/models/interfaces';
 })
 export class EditTaskModalComponent {
   @Output() taskUpdated = new EventEmitter<Task>();
-  display: string = "none";
   currentTask!: Task;
   TaskStates: TaskState[] = Object.values(TaskState);
 
   constructor(public activeModal: NgbActiveModal){}
 
   onChangeTask(task: Task): void{
-    this.currentTask = task;
-    this.openModal();
+    this.currentTask = JSON.parse(JSON.stringify(task));
   }
 
   onValidateUpdate(): void {
     this.taskUpdated.emit(this.currentTask);
     this.activeModal.close();
-  }
-
-  openModal(): void {
-    this.display = 'block';
-  }
-
-  closeModal(): void {
-    this.display = 'none';
   }
 }
