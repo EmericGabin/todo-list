@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Task } from '../shared/models/interfaces';
 import { TaskState } from '../shared/models/enums';
 import { TaskService } from '../shared/services/task.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.compon
 })
 export class HomeComponent implements OnInit {
   constructor(private taskSvc: TaskService, private modalService: NgbModal){
-    this.taskSvc.taskSubject.subscribe(task => this.getTasks())
+    this.taskSvc.taskSubject.subscribe(task => this.getTasks());
   }
 
   task: string = "";
@@ -20,7 +21,6 @@ export class HomeComponent implements OnInit {
   state: TaskState = TaskState.Completed;
 
   ngOnInit(): void {
-    
   }
 
   getTasks(): void{

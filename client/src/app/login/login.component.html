@@ -1,0 +1,29 @@
+<div class="container" style="margin-top: 12rem;">
+    <div class="row h-100 justify-content-center align-items-center">
+      <main class="col-md-3">
+        <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="submitForm()">
+          <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
+  
+          <div class="form-floating">
+            <input type="email" formControlName="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+            <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+              <small *ngIf="loginForm.get('email')?.errors?.['required']" class="text-danger">Email is required</small>
+              <small *ngIf="loginForm.get('email')?.errors?.['email']" class="text-danger">Please enter a valid email</small>
+            </div>
+          </div>
+          <div class="form-floating">
+            <input type="password" formControlName="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+            <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+              <small class="text-danger" *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</small>
+            </div>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" [disabled]="loginForm.invalid">Sign in</button>
+        </form>
+        <p class="mt-5 mb-3 text-muted">&copy; 2023-2024</p>
+        <p class="mt-3">Not registered? <a href="/register">Register here</a></p>
+      </main>
+    </div>
+  </div>
+  
