@@ -18,6 +18,7 @@ import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
 import { HeaderComponent } from './header/header.component';
+import { MyTasksComponent } from './my-tasks/my-tasks.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HeaderComponent } from './header/header.component';
     EditTaskModalComponent,
     LoginComponent,
     RegisterComponent,
-    HeaderComponent
+    HeaderComponent,
+    MyTasksComponent
   ],
   imports: [
     BrowserModule,

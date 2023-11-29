@@ -4,11 +4,13 @@ import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { authGuard } from './guards/auth.guard';
+import { MyTasksComponent } from './my-tasks/my-tasks.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+  { path: 'my-tasks', component: MyTasksComponent, canActivate: [authGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 

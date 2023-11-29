@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Types } from "mongoose";
+import { User } from "src/users/entities/user.entity";
 
 export type TaskDocument = Task & Document;
 
@@ -12,6 +14,12 @@ export class Task {
 
     @Prop({required: true})
     state: string;
+
+    @Prop({ type: Types.ObjectId, ref: 'User' })
+    createdBy: User; // Utilisateur qui a créé la tâche
+
+    @Prop({ type: Types.ObjectId, ref: 'User' })
+    assignedTo: User; // Utilisateur à qui la tâche est assignée
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);

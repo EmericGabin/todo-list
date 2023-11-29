@@ -19,6 +19,9 @@ export class AuthService {
 
   constructor() { 
     this.apiSvc = inject(HttpClientApiService);
+    if(sessionStorage.getItem('user')){
+      this.isLoggedIn = true;
+    }
   }
 
   registerUser(user: User): Observable<User> | null {
@@ -28,6 +31,14 @@ export class AuthService {
   login(email: string, password: string): Observable<User | null> {
     const data = { email: email, password: password };
     return this.apiSvc.post<any, User | null>(AuthUrls.LOGIN, data);
+  }
+
+  getUsers(): Observable<User[]>{
+    return this.apiSvc.get<User[]>(AuthUrls.URL);
+  }
+
+  getUser(id: string): Observable<User>{
+    return this.apiSvc.get<User>(AuthUrls.URL + "/" + id);
   }
 
   logOut(): void {

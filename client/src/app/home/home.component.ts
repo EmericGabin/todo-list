@@ -1,10 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Task } from '../shared/models/interfaces';
+import { Task, User } from '../shared/models/interfaces';
 import { TaskState } from '../shared/models/enums';
 import { TaskService } from '../shared/services/task.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -12,22 +14,34 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  private authSvc: AuthService;
+  taskForm!: FormGroup;
+  private formBuilder: FormBuilder;
+  
   constructor(private taskSvc: TaskService, private modalService: NgbModal){
+    this.authSvc = inject(AuthService);
+    this.formBuilder = inject(FormBuilder);
     this.taskSvc.taskSubject.subscribe(task => this.getTasks());
   }
 
-  task: string = "";
   listOfTask: Task[] = [];
+  listOfUsers: User[] = [];
   state: TaskState = TaskState.Completed;
 
   ngOnInit(): void {
+    this.authSvc.getUsers().subscribe(value => this.listOfUsers = value);
+
+    this.taskForm = this.formBuilder.group({
+      taskName: ['', Validators.required],
+      userName: ['', Validators.required]
+    });
   }
 
   getTasks(): void{
     this.taskSvc.getAll().subscribe(resultat => this.listOfTask = resultat);
   }
 
-  onSaveTask() : void {
+/*   onSaveTask() : void {
     let task = {
       name: this.task,
       dateCreated: new Date(),
@@ -36,7 +50,7 @@ export class HomeComponent implements OnInit {
 
     this.taskSvc.add(task);
     this.task = "";
-  }
+  } */
 
   onDeleteTask(task: Task) : void {
     this.taskSvc.delete(task);
@@ -82,5 +96,37 @@ export class HomeComponent implements OnInit {
     }, 150)
 
     console.log(this.listOfTask)
+  }
+
+  submitForm(){
+    if (this.taskForm.valid) {
+      const { taskName, userName } = this.taskForm.value;
+      console.log('Form submitted successfully!', this.taskForm.value);
+      // Retrieve the item from session storage
+      const storedItem = sessionStorage.getItem('user');
+
+      if (storedItem) {
+        // Parse the stored item from string to object
+        const parsedItem: any = JSON.parse(storedItem); // Use 'any' as it might not strictly adhere to the User interface
+        // Convert the parsed item to match the User interface
+        const user: User = {
+          _id: parsedItem._id,
+          fullName: parsedItem.fullName,
+          email: parsedItem.email,
+          password: parsedItem.password,
+        };
+
+        let task = {
+          name: taskName,
+          dateCreated: new Date(),
+          state: TaskState.InProgress,
+          createdBy: user._id,
+          assignedTo: userName
+        } as Task;
+    
+        this.taskSvc.add(task);
+        this.taskForm.reset();
+      }
+    }
   }
 }

@@ -5,6 +5,8 @@ export interface Task {
   name: string,
   dateCreated: Date,
   state: TaskState,
+  createdBy: string,
+  assignedTo: string
 }
 
 export interface User {
