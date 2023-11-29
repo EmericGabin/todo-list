@@ -40,7 +40,7 @@
                 (change)="onChangeStateTask(task)"
             >
             <label class="form-check-label fs-5" for="checkbox-{{i}}" [ngClass]="{'text-decoration-line-through': task.state === state}">
-                {{task.name}}
+                {{ task | taskDetails }}
             </label>
             <div class="">
                 <button class="btn btn-outline-primary m-1" (click)="openModal(task)">

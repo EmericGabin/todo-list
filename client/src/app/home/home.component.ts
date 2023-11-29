@@ -41,17 +41,6 @@ export class HomeComponent implements OnInit {
     this.taskSvc.getAll().subscribe(resultat => this.listOfTask = resultat);
   }
 
-/*   onSaveTask() : void {
-    let task = {
-      name: this.task,
-      dateCreated: new Date(),
-      state: TaskState.InProgress
-    } as Task;
-
-    this.taskSvc.add(task);
-    this.task = "";
-  } */
-
   onDeleteTask(task: Task) : void {
     this.taskSvc.delete(task);
   }
@@ -116,15 +105,19 @@ export class HomeComponent implements OnInit {
           password: parsedItem.password,
         };
 
-        let task = {
-          name: taskName,
-          dateCreated: new Date(),
-          state: TaskState.InProgress,
-          createdBy: user._id,
-          assignedTo: userName
-        } as Task;
+        this.authSvc.getUser(userName).subscribe(res => {
+
+          let task = {
+            name: taskName,
+            dateCreated: new Date(),
+            state: TaskState.InProgress,
+            createdBy: user,
+            assignedTo: res
+          } as Task;
+
+          this.taskSvc.add(task);
+        });
     
-        this.taskSvc.add(task);
         this.taskForm.reset();
       }
     }

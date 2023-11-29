@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
 import { HeaderComponent } from './header/header.component';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
+import { TaskDetailsPipe } from './shared/pipe/task-details.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MyTasksComponent } from './my-tasks/my-tasks.component';
     LoginComponent,
     RegisterComponent,
     HeaderComponent,
-    MyTasksComponent
+    MyTasksComponent,
+    TaskDetailsPipe
   ],
   imports: [
     BrowserModule,
