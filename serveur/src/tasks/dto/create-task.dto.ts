@@ -4,6 +4,6 @@ export class CreateTaskDto {
     name: string;
     dateCreated: Date;
     state: string;
-    createdBy: ObjectId;
-    assignedTo: ObjectId
+    createdBy: Object;
+    assignedTo: Object
 }
