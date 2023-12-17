@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
-  { path: 'my-tasks', component: MyTasksComponent, canActivate: [authGuard] },
+  { path: 'my-tasks/:id', component: MyTasksComponent, canActivate: [authGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 

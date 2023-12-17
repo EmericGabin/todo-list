@@ -16,10 +16,10 @@ export class Task {
     state: string;
 
     @Prop({ type: Types.ObjectId, ref: 'User' })
-    createdBy: User; // Utilisateur qui a créé la tâche
+    createdBy: Types.ObjectId;; // Utilisateur qui a créé la tâche
 
     @Prop({ type: Types.ObjectId, ref: 'User' })
-    assignedTo: User; // Utilisateur à qui la tâche est assignée
+    assignedTo: Types.ObjectId;; // Utilisateur à qui la tâche est assignée
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);

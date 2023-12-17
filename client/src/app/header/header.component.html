@@ -5,12 +5,12 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a routerLink="/home" routerLinkActive="active" class="nav-item nav-link active">
-            Home
+          {{'lbl-home' |translate}}
         </a>
-        <a routerLink="/my-tasks" routerLinkActive="active" class="nav-item nav-link active">
-            My tasks
+        <a *ngIf="currentUser" [routerLink]="['/my-tasks', currentUser._id]" routerLinkActive="active" class="nav-item nav-link active">
+          {{'lbl-my-tasks' |translate}}
         </a>
-        <button class="btn btn-outline-primary" type="button" (click)="logOut()">Sign out</button>
+        <button class="btn btn-outline-primary" type="button" (click)="logOut()">{{'lbl-sign-out' |translate}}</button>
       </div>
     </div>
   </nav>

@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { passwordMatchValidator } from '../shared/directives/password-match.directive';
+import { passwordMatchValidator } from '../shared/validators/password-match.directive';
 import { AuthService } from '../shared/services/auth.service';
 import { User } from '../shared/models/interfaces';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -17,15 +18,22 @@ export class RegisterComponent {
   private authSvc: AuthService;
   private router: Router;
   private messagerieSvc: MessageService;
+  private translateSvc: TranslateService;
 
   constructor() {
     this.formBuilder = inject(FormBuilder);
     this.authSvc = inject(AuthService);
     this.router = inject(Router);
-    this.messagerieSvc = inject(MessageService)
+    this.messagerieSvc = inject(MessageService);
+    this.translateSvc = inject(TranslateService);
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('userLocale')){
+      this.translateSvc.use(localStorage.getItem('userLocale')!);
+    }else{
+      this.translateSvc.use(this.translateSvc.defaultLang);
+    }
     this.registerForm = this.formBuilder.group({
       fullName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       email: ['', [Validators.required, Validators.email]],

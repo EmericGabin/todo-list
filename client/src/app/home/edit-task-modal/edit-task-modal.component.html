@@ -1,14 +1,14 @@
 <div class="modal-header">
-    <h4 class="modal-title">Update</h4>
+    <h4 class="modal-title">{{'lbl-update' |translate}}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
   </div>
   <div class="modal-body">
     <div class="form-group" >
-      <label>Task name</label>
+      <label>{{'lbl-task-name' |translate}}</label>
       <input type="text" class="form-control" [(ngModel)]="currentTask.name">
     </div>
     <div class="form-group">
-      <label>State</label>
+      <label>{{'lbl-state' |translate}}</label>
       <ng-select
        bindLabel="name"
       autofocus
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="onValidateUpdate()">To validate</button>
-    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="onValidateUpdate()">{{'lbl-to-validate' |translate}}</button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">{{'lbl-close' |translate}}</button>
   </div>
   

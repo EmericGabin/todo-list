@@ -35,6 +35,10 @@ export class TaskService {
     return this.apiSvc.get<Task[]>(TaskUrls.URL);
   }
 
+  getTasksAssignedToUser(userId: string): Observable<Task[]> {
+    return this.apiSvc.get<Task[]>(TaskUrls.URL + "/assignedTo/" + userId);
+  }
+
   update(task: Task) {
     this.apiSvc.patch<Task, Task>(TaskUrls.URL, task._id, task)?.subscribe(r => {
       if (r)

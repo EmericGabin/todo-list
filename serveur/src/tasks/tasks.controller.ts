@@ -17,6 +17,11 @@ export class TasksController {
     return this.tasksService.findAll();
   }
 
+  @Get('assignedTo/:userId')
+  findTasksAssignedToUser(@Param('userId') userId: string) {
+    return this.tasksService.findAssignedTasks(userId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.tasksService.findOne(id);

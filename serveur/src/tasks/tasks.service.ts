@@ -4,8 +4,7 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskDocument } from './schemas/tasks.schemas';
 import { Task } from './entities/task.entity';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { ObjectUnsubscribedError } from 'rxjs';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class TasksService {
@@ -14,25 +13,29 @@ export class TasksService {
   Model<TaskDocument>) {}
 
   async create(createTaskDto: CreateTaskDto) {
-    const createUser = new this.taskModel(createTaskDto);
-    return await createUser.save();
+    const task = new this.taskModel(createTaskDto);
+    return await task.save();
   }
 
-  findAll(): Promise<TaskDocument[]> {
-    return this.taskModel.find().exec();
+  async findAll(): Promise<TaskDocument[]> {
+    return await this.taskModel.find().exec();
   }
 
-  findOne(id: string): Promise<TaskDocument> {
-    return this.taskModel.findById(id).exec();
+  async findOne(id: string): Promise<TaskDocument> {
+    return await this.taskModel.findById(id).exec();
   }
 
-  update(id: string, updateTaskDto: UpdateTaskDto): Promise<TaskDocument> {
-    return this.taskModel
+  async findAssignedTasks(userId: string): Promise<TaskDocument[]> {
+    return await this.taskModel.find({ assignedTo: userId }).exec();
+  }
+
+  async update(id: string, updateTaskDto: UpdateTaskDto): Promise<TaskDocument> {
+    return await this.taskModel
       .findByIdAndUpdate(id, updateTaskDto, {new: true})
       .exec();
   }
 
-  remove(id: string): Promise<TaskDocument> {
-    return this.taskModel.findByIdAndDelete(id).exec();
+  async remove(id: string): Promise<TaskDocument> {
+    return await this.taskModel.findByIdAndDelete(id).exec();
   }
 }

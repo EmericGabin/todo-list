@@ -5,13 +5,15 @@ export interface Task {
   name: string,
   dateCreated: Date,
   state: TaskState,
-  createdBy: User,
-  assignedTo: User
+  createdBy: string,
+  assignedTo: string,
+  __v: number
 }
 
 export interface User {
   _id: string,
   fullName: string,
   email: string,
-  password: string
+  password: string,
+  __v: number
 }

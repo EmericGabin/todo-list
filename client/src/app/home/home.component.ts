@@ -7,6 +7,7 @@ import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.compon
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -17,10 +18,12 @@ export class HomeComponent implements OnInit {
   private authSvc: AuthService;
   taskForm!: FormGroup;
   private formBuilder: FormBuilder;
+  private translateSvc: TranslateService;
   
   constructor(private taskSvc: TaskService, private modalService: NgbModal){
     this.authSvc = inject(AuthService);
     this.formBuilder = inject(FormBuilder);
+    this.translateSvc = inject(TranslateService);
     this.taskSvc.taskSubject.subscribe(task => this.getTasks());
   }
 
@@ -103,6 +106,7 @@ export class HomeComponent implements OnInit {
           fullName: parsedItem.fullName,
           email: parsedItem.email,
           password: parsedItem.password,
+          __v: parsedItem.__v
         };
 
         this.authSvc.getUser(userName).subscribe(res => {
@@ -111,8 +115,8 @@ export class HomeComponent implements OnInit {
             name: taskName,
             dateCreated: new Date(),
             state: TaskState.InProgress,
-            createdBy: user,
-            assignedTo: res
+            createdBy: user._id,
+            assignedTo: res._id
           } as Task;
 
           this.taskSvc.add(task);
